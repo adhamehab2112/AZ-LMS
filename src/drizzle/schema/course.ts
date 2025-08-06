@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { courseProductTable } from "./courseProducts";
 
 export const CourseTable = pgTable("courses",{
     id : uuid().primaryKey().defaultRandom(),
@@ -9,6 +10,6 @@ export const CourseTable = pgTable("courses",{
     updatedAt : timestamp({withTimezone:true}).notNull().defaultNow().$onUpdate(()=> new Date()),
 })
 
-export const CourseRelationShips = relations(CourseTable,({one,many})=>({
-    // test : one()
+export const CourseRelationShips = relations(CourseTable,({many})=>({
+    courseProducts : many(courseProductTable),   
 }) )
