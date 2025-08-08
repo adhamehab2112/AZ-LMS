@@ -2,6 +2,7 @@ import { integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { CourseTable } from "./course";
 import { productStatusEnum } from "./products";
 import { relations } from "drizzle-orm";
+import { LessonsTable } from "./lesson";
 
 
 export const courseSectionsTable = pgTable("course-sections",{
@@ -14,9 +15,10 @@ export const courseSectionsTable = pgTable("course-sections",{
     updatedAt : timestamp({withTimezone:true}).notNull().defaultNow().$onUpdate(()=> new Date()),
 }) 
 
-export const courseSectionRelationship = relations(courseSectionsTable,({one})=>({
+export const courseSectionRelationship = relations(courseSectionsTable,({one , many})=>({
     course : one(CourseTable,{
         fields : [courseSectionsTable.courseId],
         references : [CourseTable.id]
-    })
+    }),
+    lessons : many(LessonsTable)
 }))

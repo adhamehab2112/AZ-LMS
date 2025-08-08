@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { courseProductTable } from "./courseProducts";
+import { userCoursesTable } from "./userCourceAccess";
 
 export const CourseTable = pgTable("courses",{
     id : uuid().primaryKey().defaultRandom(),
@@ -12,4 +13,5 @@ export const CourseTable = pgTable("courses",{
 
 export const CourseRelationShips = relations(CourseTable,({many})=>({
     courseProducts : many(courseProductTable),   
+    userCourseAccess : many(userCoursesTable)
 }) )

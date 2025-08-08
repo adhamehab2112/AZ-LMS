@@ -13,7 +13,7 @@ export const ProductsTable = pgTable("products", {
     createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow().$onUpdate(() => new Date()),
     imgUrl: text().notNull(),
-    priceInEGP: integer().notNull(),
+    priceInDollars: integer().notNull(),
     status: productStatusEnum().notNull().default("private")
 
 })
